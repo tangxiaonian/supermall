@@ -1,5 +1,5 @@
 <template>
-    <div class="detail-base-info">
+    <div class="detail-base-info"  v-if="Object.keys(goodBaseInfo).length > 0">
         <p class="top">{{goodBaseInfo.title}}</p>
         <div class="center">
             <span>{{goodBaseInfo.price}}</span>

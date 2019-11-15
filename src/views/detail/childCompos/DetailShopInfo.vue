@@ -1,5 +1,5 @@
 <template>
-    <div class="detail-shop-info">
+    <div class="detail-shop-info" v-if="Object.keys(shopInfo).length > 0">
         <div class="top">
             <img :src="shopInfo.shopLogo" alt="">
             <span>{{shopInfo.name}}</span>
