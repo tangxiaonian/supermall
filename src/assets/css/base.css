@@ -1,4 +1,4 @@
-@import "~normalize.css/normalize.css";
+@import "./normalize.css";
 
 /*:root -> 获取根元素html*/
 :root {
@@ -8,6 +8,7 @@
     --color-background: #fff;
     --font-size: 14px;
     --line-height: 1.5;
+    font-size: 13.33333vw;
 }
 
 *,

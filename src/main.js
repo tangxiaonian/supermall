@@ -1,8 +1,23 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-Vue.config.productionTip = false
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+
+import router from "./router/router";
+
+Vue.use(VueAxios, axios);
+
+Vue.use(VueAwesomeSwiper);
+
+// 消息总线
+Vue.prototype.$bus = new Vue();
+
+Vue.config.productionTip = false;
 
 new Vue({
   render: h => h(App),
-}).$mount('#app')
+  router
+}).$mount('#app');
