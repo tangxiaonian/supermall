@@ -2,7 +2,7 @@
 
     <div class="good-item" @click="goDetails">
 
-        <img :src="goodInfo.showLarge.img" alt="" @load="imgLoadFinish">
+        <img :src="goodInfo | filterImg" alt="" @load="imgLoadFinish">
 
         <div class="good-info">
             <p class="good-title">{{goodInfo.title}}</p>
@@ -27,7 +27,9 @@
         methods:{
             // 图片加载完成触发
             imgLoadFinish() {
+
                 this.$bus.$emit("imgItemRefresh");
+
             },
             // 跳转商品详情
             goDetails() {
@@ -39,6 +41,12 @@
                     }
                 });
 
+            }
+        },
+        filters:{
+
+            filterImg(goodInfo) {
+                return goodInfo.image || goodInfo.showLarge.img;
             }
         }
     }

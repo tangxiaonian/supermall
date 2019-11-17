@@ -35,6 +35,7 @@
         },
         methods:{
             goTop(x,y,time=300){
+
                 this.scroll && this.scroll.scrollTo(x, y, time);
             },
             // 通知上拉加载完成

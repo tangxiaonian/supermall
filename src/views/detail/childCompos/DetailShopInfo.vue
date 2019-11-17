@@ -37,9 +37,6 @@
         <div class="bottom">
             进店铺逛一逛
         </div>
-        <p>1</p>
-        <p>1</p>
-        <p>1</p>
     </div>
 </template>
 
@@ -101,13 +98,13 @@
                     }
                 }
 
-
-
             }
 
         }
 
-
+        .bottom{
+            text-align: center;
+        }
 
         img{
             display: inline-block;

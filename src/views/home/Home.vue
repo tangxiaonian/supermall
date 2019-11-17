@@ -64,7 +64,7 @@
     import TabController from "../../components/content/tabController/TabController";
     import Goods from "../../components/content/goods/Goods";
 
-    import {debounce} from "../../common/Utils";
+    import {mixin} from "../../common/mixins";
 
     export default {
 
@@ -93,7 +93,8 @@
                 isShow:false, // 是否显示 去顶部图标
                 distanctTopHegiht:0, // tabController2 距离 顶部的距离
                 isFixed: false, // 是否显示隐藏的吸顶盒
-                saveY:0,
+                saveY:0, //离开时的位置
+                itemImgListener: null // 监听函数
             };
         },
         computed: {
@@ -113,19 +114,13 @@
         },
         mounted() {
 
-            // 防抖进行刷新
-            const fun = debounce(this.$refs.scroll.refresh);
-
-            //  图片加载完成通知重新刷新Scroll滚动域
-            this.$bus.$on("imgItemRefresh",() => {
-
-                fun();
-
-            });
-
         },
+
+        mixins: [mixin],
+
         // 激活时触发
         activated() {
+
             // 重新定位
             this.$refs.scroll.goTop(0, this.saveY, 0);
 
@@ -136,6 +131,9 @@
         deactivated() {
             // 记录离开时的位置
             this.saveY = this.$refs.scroll.getY();
+            // 取消监听
+            this.$bus.$off("imgItemRefresh", this.itemImgListener);
+
         },
         methods: {
 

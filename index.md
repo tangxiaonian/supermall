@@ -48,11 +48,18 @@
     
 # 详情页
 
+### navbar 的封装
+
+### DetailSwiper
+
+### DetailBaseInfo
+
+### DetailShopInfo
+
 ### TabBar隐藏效果实现:
 
-顶部navbar相对定位，z-index值>其他部分的z-index
+1.顶部navbar相对定位，z-index值>其他部分的z-index
 
-其他部分scroll包裹设置高度 包裹部分的z-index>
-底部固定定位的z-index值
+2.其他部分scroll包裹设置高度 包裹部分的z-index>底部固定定位tabBar的z-index值
     
-即可实现详情页隐藏tabBar
+3.即可实现详情页隐藏tabBar

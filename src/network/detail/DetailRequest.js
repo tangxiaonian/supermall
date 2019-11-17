@@ -48,3 +48,12 @@ export class ShopInfo {
     }
 
 }
+
+// 推荐商品展示
+export function getRecommend(success,error) {
+
+    request({
+        url: "/recommend"
+    },success,error);
+
+}

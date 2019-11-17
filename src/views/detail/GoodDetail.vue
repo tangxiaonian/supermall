@@ -3,13 +3,22 @@
 
         <detail-nav-bar></detail-nav-bar>
 
-        <scroll class="wrapper">
+        <scroll class="wrapper" ref="scroll">
 
             <detail-swiper :top-image="topImages"></detail-swiper>
 
             <detail-base-info :good-base-info="goodBaseInfo"></detail-base-info>
 
             <detail-shop-info :shopInfo="shopInfo"></detail-shop-info>
+
+            <detai-image-info :detailImage="detailImage"></detai-image-info>
+
+            <detai-size-info :itemParams="itemParams"></detai-size-info>
+
+            <detail-comment-info :comments="comments"></detail-comment-info>
+
+            <h3>推荐区</h3>
+            <goods :goods="recommend"></goods>
 
         </scroll>
 
@@ -21,12 +30,19 @@
     import DetailNavBar from "./childCompos/DetailNavBar";
     import DetailBaseInfo from "./childCompos/DetailBaseInfo";
     import DetailShopInfo from "./childCompos/DetailShopInfo";
+    import DetaiImageInfo from "./childCompos/DetaiImageInfo";
+    import DetaiSizeInfo from "./childCompos/DetaiSizeInfo";
+    import DetailCommentInfo from "./childCompos/DetailCommentInfo";
 
 
     import Scroll from "../../components/common/scroll/Scroll";
+    import Goods from "../../components/content/goods/Goods";
 
 
-    import {GoodBaseInfo,ShopInfo, requestDetailInfo} from "../../network/detail/DetailRequest";
+    import {GoodBaseInfo,ShopInfo, requestDetailInfo,getRecommend} from "../../network/detail/DetailRequest";
+
+
+    import {mixin} from "../../common/mixins";
 
     export default {
 
@@ -37,6 +53,11 @@
                 topImages:[],
                 goodBaseInfo:{},
                 shopInfo: {},
+                detailImage:{},
+                itemParams:{},
+                comments:{},
+                recommend:[],
+                recommendImgListener:null
             };
         },
         components: {
@@ -44,11 +65,30 @@
             DetailSwiper,
             DetailBaseInfo,
             DetailShopInfo,
+            DetaiImageInfo,
+            DetaiSizeInfo,
+            DetailCommentInfo,
+            Goods,
             Scroll
         },
         created() {
 
             this.requestDetailInfo();
+
+            this.getRecommend();
+
+        },
+        mounted(){
+
+
+
+        },
+
+        mixins: [mixin],
+
+        destroyed() {
+
+            this.$off("imgItemRefresh", this.recommendImgListener);
 
         },
         methods: {
@@ -60,25 +100,42 @@
 
                 requestDetailInfo({iid}, (result) => {
 
-                    console.log(result);
-
+                    // 轮播图
                     this.topImages = result.data.result.itemInfo.topImages;
-                    // 封装 商品基本信息的组件数据
+
+                    // 商品基本信息
                     this.goodBaseInfo = new GoodBaseInfo(
                         result.data.result.columns,
                         result.data.result.itemInfo,
                         result.data.result.shopInfo.services
                     );
 
+                    // 店铺信息
                     this.shopInfo = new ShopInfo(result.data.result.shopInfo);
+
+                    // 详细图片
+                    this.detailImage = result.data.result.detailInfo.detailImage[0];
+
+                    // 参数详细信息
+                    this.itemParams = result.data.result.itemParams;
+
+                    // 评论信息
+                    this.comments = result.data.result.rate;
 
                 }, (error) => {
 
                     console.log(error);
 
                 });
+            },
+            //请求商品推荐信息
+            getRecommend() {
+                getRecommend((result) => {
+                    this.recommend = result.data.data.list;
+                }, (error) => {
+                    console.log(error);
+                });
             }
-
         }
     };
 </script>
@@ -90,6 +147,10 @@
         left: 0;z-index: 3;
         height: calc(100vh - .8rem);
         background-color: white;
+    }
+
+    h3{
+        font-size: .45rem;
     }
 
 </style>

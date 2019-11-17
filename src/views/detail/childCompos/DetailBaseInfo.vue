@@ -12,7 +12,7 @@
             </span>
         </div>
         <div class="bottom-service">
-            <div v-for="(item,index) in goodBaseInfo.services" :key="index">
+            <div v-for="(item,index) in goodBaseInfo.services" :key="index" v-if="index < 4">
                 <img :src="item.icon" alt="">
                 <span>{{item.name}}</span>
             </div>
