@@ -4,7 +4,7 @@ export let mixin = {
     data() {
         return {
             itemImgListener: null, // 图片加载完成的监听函数。
-            fun: null,
+            fun: null, // 防抖函数
         };
     },
     mounted(){
@@ -20,6 +20,5 @@ export let mixin = {
 
         // 监听 推荐图片加载完成刷新 scroll
         this.$bus.$on("imgItemRefresh", this.fun);
-
     },
 };

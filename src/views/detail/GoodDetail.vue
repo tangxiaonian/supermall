@@ -1,7 +1,7 @@
 <template>
     <div class="good-detail">
 
-        <detail-nav-bar></detail-nav-bar>
+        <detail-nav-bar @clickItemNav="clickItemNav"></detail-nav-bar>
 
         <scroll class="wrapper" ref="scroll">
 
@@ -13,12 +13,15 @@
 
             <detai-image-info :detailImage="detailImage" @imgLoadFinsh="imgLoadFinsh"></detai-image-info>
 
-            <detai-size-info :itemParams="itemParams"></detai-size-info>
+            <!--    参数       -->
+            <detai-size-info ref="params" :itemParams="itemParams"></detai-size-info>
 
-            <detail-comment-info :comments="comments"></detail-comment-info>
+            <!--    评论        -->
+            <detail-comment-info ref="comment" :comments="comments"></detail-comment-info>
 
+            <!--    推荐        -->
             <h3>推荐区</h3>
-            <goods :goods="recommend"></goods>
+            <goods :goods="recommend" ref="recommend"></goods>
 
         </scroll>
 
@@ -34,15 +37,14 @@
     import DetaiSizeInfo from "./childCompos/DetaiSizeInfo";
     import DetailCommentInfo from "./childCompos/DetailCommentInfo";
 
-
     import Scroll from "../../components/common/scroll/Scroll";
     import Goods from "../../components/content/goods/Goods";
-
 
     import {getRecommend, GoodBaseInfo, requestDetailInfo, ShopInfo} from "../../network/detail/DetailRequest";
 
 
     import {mixin} from "../../common/mixins";
+    import {debounce} from "../../common/Utils";
 
     export default {
 
@@ -57,6 +59,9 @@
                 itemParams:{},
                 comments:{},
                 recommend:[],
+                topValue: [], // 计算每个选项组件距离顶部的offsetTop值
+                topValueListener: null,
+                topDebounce: null
             };
         },
         components: {
@@ -79,16 +84,27 @@
         },
         mounted(){
 
+            this.topValueListener = () => {
 
+                this.topValue.length = 0;
 
+                this.topValue.push(0);
+
+                this.topValue.push(this.$refs.params.$el.offsetTop);
+
+                this.topValue.push(this.$refs.comment.$el.offsetTop);
+
+                this.topValue.push(this.$refs.recommend.$el.offsetTop);
+
+            };
+
+            this.topDebounce = debounce(this.topValueListener,100);
         },
 
         mixins: [mixin],
 
         destroyed() {
-
             this.$off("imgItemRefresh", this.itemImgListener);
-
         },
         methods: {
 
@@ -121,11 +137,13 @@
                     // 评论信息
                     this.comments = result.data.result.rate;
 
+
                 }, (error) => {
 
                     console.log(error);
 
                 });
+
             },
             //请求商品推荐信息
             getRecommend() {
@@ -135,9 +153,19 @@
                     console.log(error);
                 });
             },
-            // 图片组件 加载完成 刷新scroll
+            // 图片组件 加载完成 刷新scroll,计算组件的offsetTop值
             imgLoadFinsh() {
+
+                // 防抖计算top值
+                this.topDebounce();
+
                 this.fun();
+
+            },
+            // 派发点击事件
+            clickItemNav(index) {
+                // 点击跳转
+                this.$refs.scroll.goTop(0,-this.topValue[index],200);
             }
         }
     };

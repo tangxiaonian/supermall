@@ -50,7 +50,10 @@
         methods:{
             // 点击选项
             clickItem(index) {
+
                 this.currentIndex = index;
+                // 派发点击事件
+                this.$emit("clickItemNav",index);
             },
             back() {
                 this.$router.back();
