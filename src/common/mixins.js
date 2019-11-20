@@ -1,7 +1,11 @@
 import {debounce} from "./Utils";
 
 export let mixin = {
-
+    data() {
+        return {
+            itemImgListener: null // 图片加载完成的监听函数。
+        };
+    },
     mounted(){
 
         // 监听器

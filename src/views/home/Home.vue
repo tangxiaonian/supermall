@@ -94,7 +94,6 @@
                 distanctTopHegiht:0, // tabController2 距离 顶部的距离
                 isFixed: false, // 是否显示隐藏的吸顶盒
                 saveY:0, //离开时的位置
-                itemImgListener: null // 监听函数
             };
         },
         computed: {

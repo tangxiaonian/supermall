@@ -57,7 +57,6 @@
                 itemParams:{},
                 comments:{},
                 recommend:[],
-                recommendImgListener:null
             };
         },
         components: {
@@ -88,7 +87,7 @@
 
         destroyed() {
 
-            this.$off("imgItemRefresh", this.recommendImgListener);
+            this.$off("imgItemRefresh", this.itemImgListener);
 
         },
         methods: {
