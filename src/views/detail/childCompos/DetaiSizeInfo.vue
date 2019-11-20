@@ -1,5 +1,5 @@
 <template>
-    <div class="detail-size-info">
+    <div class="detail-size-info" v-if="Object.keys(itemParams).length > 0">
 
         <div class="top">
 

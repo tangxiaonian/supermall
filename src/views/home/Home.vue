@@ -120,16 +120,18 @@
         // 激活时触发
         activated() {
 
+            this.$refs.scroll.refresh();
+
             // 重新定位
             this.$refs.scroll.goTop(0, this.saveY, 0);
-
-            this.$refs.scroll.refresh();
 
         },
         // 失效时触发
         deactivated() {
+
             // 记录离开时的位置
             this.saveY = this.$refs.scroll.getY();
+
             // 取消监听
             this.$bus.$off("imgItemRefresh", this.itemImgListener);
 

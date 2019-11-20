@@ -11,7 +11,7 @@
 
             <detail-shop-info :shopInfo="shopInfo"></detail-shop-info>
 
-            <detai-image-info :detailImage="detailImage"></detai-image-info>
+            <detai-image-info :detailImage="detailImage" @imgLoadFinsh="imgLoadFinsh"></detai-image-info>
 
             <detai-size-info :itemParams="itemParams"></detai-size-info>
 
@@ -39,7 +39,7 @@
     import Goods from "../../components/content/goods/Goods";
 
 
-    import {GoodBaseInfo,ShopInfo, requestDetailInfo,getRecommend} from "../../network/detail/DetailRequest";
+    import {getRecommend, GoodBaseInfo, requestDetailInfo, ShopInfo} from "../../network/detail/DetailRequest";
 
 
     import {mixin} from "../../common/mixins";
@@ -134,6 +134,10 @@
                 }, (error) => {
                     console.log(error);
                 });
+            },
+            // 图片组件 加载完成 刷新scroll
+            imgLoadFinsh() {
+                this.fun();
             }
         }
     };

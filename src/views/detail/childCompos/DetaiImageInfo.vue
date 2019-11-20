@@ -1,7 +1,7 @@
 <template>
     <div class="detail-image-info">
         <p>{{detailImage.key}}</p>
-        <img :src="item" width="100%"
+        <img :src="item" width="100%" @load="imgLoadFinsh"
              v-for="(item,index) in detailImage.list"
              :key="index"
         />
@@ -17,6 +17,12 @@
                 default() {
                     return {};
                 }
+            }
+        },
+        methods:{
+            // 图片加载完成
+            imgLoadFinsh() {
+                this.$emit("imgLoadFinsh");
             }
         }
     }
