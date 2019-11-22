@@ -1,9 +1,16 @@
 <template>
     <div class="good-detail">
 
-        <detail-nav-bar @clickItemNav="clickItemNav"></detail-nav-bar>
+        <detail-nav-bar
+                @clickItemNav="clickItemNav"
+                ref="detailNavBar"
+        ></detail-nav-bar>
 
-        <scroll class="wrapper" ref="scroll">
+        <scroll class="wrapper"
+                ref="scroll"
+                @scrollContent="scrollContent"
+                :probe-type="3"
+        >
 
             <detail-swiper :top-image="topImages"></detail-swiper>
 
@@ -61,7 +68,10 @@
                 recommend:[],
                 topValue: [], // 计算每个选项组件距离顶部的offsetTop值
                 topValueListener: null,
-                topDebounce: null
+                topDebounce: null,
+                preIndex:0,
+                index:0
+
             };
         },
         components: {
@@ -166,6 +176,39 @@
             clickItemNav(index) {
                 // 点击跳转
                 this.$refs.scroll.goTop(0,-this.topValue[index],200);
+            },
+            // 详情页 页面滚动事件触发事件  改变导航栏的位置
+            scrollContent(posistion) {
+
+                let {y} = posistion;
+
+                for (let i = 1; i < this.topValue.length; i++) {
+
+                    // 最后边界值判断
+                    if ((-(y * 1 - 50)) >= this.topValue[this.topValue.length - 1]) {
+
+                        this.index = this.topValue.length - 1;
+
+                        break;
+                    }
+                    // 其他位置判断
+                    if ((-(y*1 - 50)) <= this.topValue[i]) {
+
+                        this.index = i - 1;
+
+                        break;
+                    }
+
+                }
+
+                if (this.index !== this.preIndex) {
+
+                    this.$refs.detailNavBar.currentIndex = this.index;
+
+                    this.preIndex = this.index;
+
+                }
+
             }
         }
     };

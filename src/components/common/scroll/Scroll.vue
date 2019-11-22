@@ -30,7 +30,7 @@
         },
         data() {
             return {
-                scroll
+                scroll:null
             }
         },
         methods:{
@@ -58,7 +58,7 @@
 
             this.scroll = new BScroll(this.$refs.wrapper, {
 
-                probeType: 0,
+                probeType: this.probeType,
                 // 开启上拉刷新
                 pullUpLoad: this.pullUpLoad,
                 // 不阻止事件触发
