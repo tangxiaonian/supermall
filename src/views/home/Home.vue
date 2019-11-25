@@ -64,7 +64,7 @@
     import TabController from "../../components/content/tabController/TabController";
     import Goods from "../../components/content/goods/Goods";
 
-    import {mixin} from "../../common/mixins";
+    import {backTopMixin, mixin} from "../../common/mixins";
 
     export default {
 
@@ -115,7 +115,7 @@
 
         },
 
-        mixins: [mixin],
+        mixins: [mixin,backTopMixin],
 
         // 激活时触发
         activated() {
@@ -162,12 +162,7 @@
                 this.$refs.tabController2.currentIndex = index;
 
             },
-            // 点击回到顶部
-            clickBack() {
 
-                this.$refs.scroll.goTop(0,0,500);
-
-            },
             // 滚动触发函数
             scrollContent(posistion) {
 

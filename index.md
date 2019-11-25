@@ -70,3 +70,11 @@
 2.mounted声明周期中获取，获取不到值，子组件还未渲染完成。
 3.利用nextTick子组件渲染完成后获取top值，可能获取失败，图片还未加载完成，值获取的不真实。
 4.监听图片加载完成，获取值。
+
+### DetailBottomBar
+
+### 混入 backtop 组件
+
+1.home.vue 和 detail.vue 回到顶部
+
+### Cart

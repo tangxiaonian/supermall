@@ -22,3 +22,17 @@ export let mixin = {
         this.$bus.$on("imgItemRefresh", this.fun);
     },
 };
+
+export let backTopMixin = {
+    data() {
+        return {
+            isShow: false
+        };
+    },
+    methods:{
+        // 点击回到顶部
+        clickBack() {
+            this.$refs.scroll.goTop(0,0,500);
+        },
+    }
+};

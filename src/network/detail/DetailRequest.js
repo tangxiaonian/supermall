@@ -21,9 +21,13 @@ export class GoodBaseInfo {
 
         this.title = itemInfo.title;
 
+        this.desc = itemInfo.desc;
+
         this.oldPrice = itemInfo.oldPrice;
 
         this.price = itemInfo.price;
+
+        this.realPrice = itemInfo.lowPrice;
 
         this.discountDesc = itemInfo.discountDesc;
 
