@@ -53,7 +53,7 @@
     import Scroll from "../../components/common/scroll/Scroll";
     import Goods from "../../components/content/goods/Goods";
     import BackTop from "../../components/common/backtop/BackTop";
-
+    import Toast from "../../components/common/toast/Toast";
 
     import {getRecommend, GoodBaseInfo, requestDetailInfo, ShopInfo} from "../../network/detail/DetailRequest";
     import {backTopMixin, mixin} from "../../common/mixins";
@@ -93,7 +93,7 @@
             DetailBottomBar,
             Goods,
             Scroll,
-            BackTop
+            BackTop,
         },
         computed: {
 
@@ -139,8 +139,6 @@
                 let {iid} = this.$route.params;
 
                 requestDetailInfo({iid}, (result) => {
-
-                    console.log(result);
 
                     // 轮播图
                     this.topImages = result.data.result.itemInfo.topImages;
@@ -240,7 +238,9 @@
                 // 商品详细信息
                 product.goodBaseInfo = this.goodBaseInfo;
 
-                this.addCarts(product);
+                this.addCarts(product).then((result) => {
+                    this.$toast.show(result, 2000);
+                });
             }
         }
     };

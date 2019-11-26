@@ -10,6 +10,10 @@ import router from "./router/router";
 
 import store from "./store/index";
 
+import ToastPlugin from "./components/common/toast/ToastPlugin";
+
+Vue.use(ToastPlugin);
+
 Vue.use(VueAxios, axios);
 
 Vue.use(VueAwesomeSwiper);

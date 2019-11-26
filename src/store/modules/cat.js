@@ -54,17 +54,33 @@ const actions = {
     addCarts({state,commit},products) {
 
         let index = state.carts.findIndex((item) => {
+
             return item.iid === products.iid;
+
         });
 
-        if (index < 0) {
-            products.number = 1;
-            commit("addCarts",products);
-        }else {
-            commit("updateNumber",{
-                index
-            });
-        }
+        return new Promise(((resolve, reject) => {
+
+            if (index < 0) {
+
+                products.number = 1;
+
+                commit("addCarts",products);
+
+                resolve("添加购物车成功!");
+
+            }else {
+
+                commit("updateNumber",{
+                    index
+                });
+
+                resolve("新增商品数量+1!");
+
+            }
+        }));
+
+
     }
 
 };
