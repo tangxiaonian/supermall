@@ -3,11 +3,13 @@
 
         <cart-nav-bar></cart-nav-bar>
 
-        <Scroll class="scroll">
+        <Scroll class="scroll" ref="scroll">
 
             <cart-list></cart-list>
 
         </Scroll>
+
+        <cart-bottom-bar></cart-bottom-bar>
 
     </div>
 </template>
@@ -19,6 +21,7 @@
 
     import { mapState } from "vuex";
     import Scroll from "../../components/common/scroll/Scroll";
+    import CartBottomBar from "./childCompos/CartBottomBar";
 
     export default {
 
@@ -27,10 +30,14 @@
         components:{
             Scroll,
             CartNavBar,
-            CartList
+            CartList,
+            CartBottomBar
         },
         computed:{
             ...mapState("cartModule",["count"])
+        },
+        activated() {
+            this.$refs.scroll.refresh();
         }
     }
 </script>
@@ -41,7 +48,7 @@
         font-size: .35rem;
 
         .scroll{
-            height: calc(100vh - .8rem - 1rem);
+            height: calc(100vh - .8rem - 1rem - .8rem);
             overflow: hidden;
         }
 

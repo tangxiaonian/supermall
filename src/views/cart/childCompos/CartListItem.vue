@@ -2,9 +2,8 @@
 
     <div class="cart-list-item">
 
-        <div class="left">
-            <img src="../../../assets/img/cart/tick.svg" alt="">
-        </div>
+        <check-button @click.native="toggleSwitch(product.iid)" :isActive="product.checked" class="left"></check-button>
+
         <div class="center">
             <img :src="product.image" width="200" height="200" alt="">
         </div>
@@ -22,6 +21,11 @@
 </template>
 
 <script>
+
+    import CheckButton from "../../../components/content/checkButton/CheckButton";
+
+    import { mapMutations } from "vuex";
+
     export default {
         name: "CartListItem",
         props:{
@@ -30,6 +34,17 @@
                 default() {
                     return {};
                 }
+            }
+        },
+        components:{
+            CheckButton
+        },
+        methods: {
+
+            ...mapMutations("cartModule",["changeSelectState"]),
+            // 切换选中状态
+            toggleSwitch(iid) {
+                this.changeSelectState({iid});
             }
         }
     }
@@ -52,6 +67,7 @@
                 width: 50px;
                 height: 50px;
                 background-color: #ff5777;
+                border-radius: 50%;
             }
 
         }

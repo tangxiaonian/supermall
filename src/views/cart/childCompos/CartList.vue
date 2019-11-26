@@ -2,11 +2,13 @@
 
     <div class="cart-list">
 
-        <cart-list-item v-for="(item,index) in carts"
+        <cart-list-item v-for="(item,index) in cartList"
                         :key="index"
                         :product="item"
         >
         </cart-list-item>
+
+        <p> {{ cartList.length }} </p>
 
     </div>
 
@@ -16,7 +18,7 @@
 
     import CartListItem from "./CartListItem";
 
-    import { mapState } from "vuex";
+    import { mapGetters } from "vuex";
 
     export default {
         name: "CartList",
@@ -24,7 +26,7 @@
             CartListItem
         },
         computed: {
-            ...mapState("cartModule",["carts"])
+            ...mapGetters("cartModule",["cartList"])
         }
     }
 </script>
