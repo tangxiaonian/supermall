@@ -75,6 +75,20 @@
 
 ### 混入 backtop 组件
 
+抽取相同代码,进行混入
+
 1.home.vue 和 detail.vue 回到顶部
 
-### Cart
+# Cart 购物车
+
+Vuex 状态管理
+
+更改model数据，页面才会变化。
+
+### CartList > Scroll
+
+### CartListItem
+
+### CartBottomBar
+
+### CartNavBar

@@ -8,8 +8,6 @@
         >
         </cart-list-item>
 
-        <p> {{ cartList.length }} </p>
-
     </div>
 
 </template>
