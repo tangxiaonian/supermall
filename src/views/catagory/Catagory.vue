@@ -1,18 +1,20 @@
 <template>
 
-    <Scroll class="wrap">
+    <div class="category">
 
-        <li>分类1</li>
-        <li>分类2</li>
-        <li>分类3</li>
-        <li>分类4</li>
-        <li>分类5</li>
-        <li>分类6</li>
-        <li>分类7</li>
-        <li>分类8</li>
+        <category-nav-bar class="category-menu"></category-nav-bar>
 
-    </Scroll>
+        <div class="category-content">
 
+            <category-menu :categorys="categorys"></category-menu>
+
+            <category-grid></category-grid>
+
+            <category-list></category-list>
+
+        </div>
+
+    </div>
 
 </template>
 
@@ -20,24 +22,79 @@
 
     import Scroll from "../../components/common/scroll/Scroll";
 
+    import CategoryNavBar from "./childCompos/CategoryNavBar";
+    import CategoryMenu from "./childCompos/CategoryMenu";
+
+    import {requestCategoryMenu} from "../../network/category/CategoryRequest";
+    import CategoryGrid from "./childCompos/CategoryGrid";
+    import CategoryList from "./childCompos/CategoryList";
+
     export default {
         name: "Catagory",
-        mounted() {
+        data() {
+            return {
+                categorys:[]
+            };
+        },
+        created() {
+            this.requestCategoryMenu();
+        },
+        methods:{
+            // 请求菜单数据
+            requestCategoryMenu(){
 
+                requestCategoryMenu((result) => {
+
+                    console.log(result);
+
+                    this.categorys = result.data.data.category.list;
+
+                }, (fail) => {
+
+                    console.log(fail);
+
+                });
+            },
+            // 请求表格数据
+
+            // 请求列表数据
 
         },
         components:{
-            Scroll
+            Scroll,
+            CategoryNavBar,
+            CategoryMenu,
+            CategoryGrid,
+            CategoryList
         }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
-    .wrap{
-        height: 5rem;
-        background-color: red;
-        overflow: hidden;
+    .category{
+
+        .category-content{
+            display: flex;
+            position: relative;
+            left: 0;top: 0;
+            bottom: 1rem;right: 0;
+
+            width: 100%;
+            height: calc(100vh - .8rem - 1rem);
+
+            .category-scroll{
+
+                flex: 1;
+
+                width: 100%;
+                height: 100%;
+
+                overflow: hidden;
+            }
+
+        }
+
     }
 
 </style>
