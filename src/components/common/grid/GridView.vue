@@ -55,6 +55,7 @@
             this.gridItemHeight = gridCollection.item(0).clientHeight;
 
             this.containerWidth = gridView.clientWidth;
+
             this.containerHeight = gridView.clientHeight;
 
             // 每一项平均分的宽度
@@ -81,8 +82,11 @@
                 let gridItem = gridCollection.item(i);
 
                 // left: 图片的实际位置  + margin left =
+
                 // i % this.col: 0 1 2
+
                 // i % this.col + 1  1  2  3
+
                 gridItem.style.cssText = `
                     position: absolute;
                     top:${ this.index * this.gridItemHeight + (this.index % this.col + 1) * marginTop}px;

@@ -17,6 +17,7 @@
 </template>
 
 <script>
+
     import GridView from "../../../components/common/grid/GridView";
 
     export default {

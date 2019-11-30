@@ -4,6 +4,7 @@
         <Scroll class="category-menu-scroll">
 
             <ul>
+
                 <li v-for="(item,key) in categorys"
                     :class="{active:index === key}"
                     :key="key"
@@ -11,6 +12,7 @@
                 >
                     {{item.title}}
                 </li>
+
             </ul>
 
         </Scroll>
@@ -19,6 +21,7 @@
 </template>
 
 <script>
+
     import Scroll from "../../../components/common/scroll/Scroll";
 
     export default {
@@ -36,7 +39,6 @@
                 index: 0
             }
         },
-
         components:{
             Scroll
         },
