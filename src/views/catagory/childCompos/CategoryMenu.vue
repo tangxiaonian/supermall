@@ -42,7 +42,10 @@
         },
         methods:{
             changeIndex(index) {
+
                 this.index = index;
+
+                this.$emit("changeIndex", index);
             }
         }
     }

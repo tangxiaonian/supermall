@@ -6,11 +6,18 @@
 
         <div class="category-content">
 
-            <category-menu :categorys="categorys"></category-menu>
+            <category-menu
+                    :categorys="categorys"
+                    @changeIndex="changeIndex"
+            ></category-menu>
 
-            <category-grid></category-grid>
+            <div class="category-content-right">
+                <category-grid
+                        :grid-data="gridData"
+                ></category-grid>
 
-            <category-list></category-list>
+                <category-list></category-list>
+            </div>
 
         </div>
 
@@ -24,41 +31,100 @@
 
     import CategoryNavBar from "./childCompos/CategoryNavBar";
     import CategoryMenu from "./childCompos/CategoryMenu";
-
-    import {requestCategoryMenu} from "../../network/category/CategoryRequest";
     import CategoryGrid from "./childCompos/CategoryGrid";
     import CategoryList from "./childCompos/CategoryList";
+
+    import {requestCategoryMenu,requestCategoryGrid,requestCategoryList} from "../../network/category/CategoryRequest";
+
 
     export default {
         name: "Catagory",
         data() {
             return {
-                categorys:[]
+                categorys: [],
+                gridData: [],
+                listData: [],
+                index:0
             };
         },
-        created() {
-            this.requestCategoryMenu();
+        async created() {
+
+            await this.requestCategoryMenu();
+
+            await this.requestCategoryGrid();
+
+            await this.requestCategoryList();
         },
         methods:{
+
+            // 事件
+            changeIndex(index) {
+                this.index = index;
+            },
+
             // 请求菜单数据
-            requestCategoryMenu(){
+            async requestCategoryMenu(){
 
-                requestCategoryMenu((result) => {
+                 await new Promise((resolve, reject)=>{
 
-                    console.log(result);
+                    requestCategoryMenu((result) => {
 
-                    this.categorys = result.data.data.category.list;
+                        this.categorys = result.data.data.category.list;
 
-                }, (fail) => {
+                        resolve(this.categorys);
 
-                    console.log(fail);
+                    }, (fail) => {
 
+                        console.log(fail);
+
+                    });
                 });
             },
             // 请求表格数据
+            async requestCategoryGrid() {
 
+                await new Promise((resolve, reject) => {
+
+                    let maitKey = this.categorys[this.index]["maitKey"];
+
+                    requestCategoryGrid({maitKey}, (result) => {
+
+                        this.gridData = result.data.data.list;
+
+                        resolve();
+
+                    }, (fail) => {
+
+                        console.log(fail);
+
+                    })
+                });
+
+            },
             // 请求列表数据
+            async requestCategoryList() {
 
+                await new Promise((resolve, reject) => {
+
+                    let params = {
+                        miniWallkey: this.categorys[this.index].miniWallkey,
+                        type: "pop"
+                    };
+
+                    requestCategoryList(params, (result) => {
+
+                        this.listData = result.data;
+
+                        resolve();
+
+                    }, (fail) => {
+
+                        console.log(fail);
+
+                    })
+                });
+
+            }
         },
         components:{
             Scroll,
@@ -91,6 +157,11 @@
                 height: 100%;
 
                 overflow: hidden;
+            }
+
+            .category-content-right{
+                width: 100%;
+                height: 100%;
             }
 
         }
