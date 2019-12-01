@@ -129,7 +129,7 @@
         mixins: [mixin,backTopMixin],
 
         destroyed() {
-            this.$off("imgItemRefresh", this.itemImgListener);
+            this.$bus.$off("imgItemRefresh", this.itemImgListener);
         },
         methods: {
             ...mapActions("cartModule",["addCarts"]),

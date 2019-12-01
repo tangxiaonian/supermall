@@ -39,7 +39,6 @@
 
         width: 100%;
         font-size: .3rem;
-        border: 1px solid red;
     }
 
 </style>

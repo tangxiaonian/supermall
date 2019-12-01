@@ -11,12 +11,14 @@
                     @changeIndex="changeIndex"
             ></category-menu>
 
-            <scroll class="category-scroll">
+            <scroll class="category-scroll" ref="scroll">
 
                 <category-grid :grid-data="gridData">
                 </category-grid>
 
-<!--                <category-list></category-list>-->
+                <p class="list">列表</p>
+                <category-list :list-data="listData">
+                </category-list>
 
             </scroll>
 
@@ -41,9 +43,17 @@
         requestCategoryList
     } from "../../network/category/CategoryRequest";
 
+    import {mixin} from "../../common/mixins";
 
     export default {
         name: "Catagory",
+        components: {
+            Scroll,
+            CategoryNavBar,
+            CategoryMenu,
+            CategoryGrid,
+            CategoryList
+        },
         data() {
             return {
                 categorys: [],
@@ -52,19 +62,30 @@
                 index: 0
             };
         },
-        async created() {
-
-            await this.requestCategoryMenu();
-
-            await this.requestCategoryGrid();
-
-            await this.requestCategoryList();
+        created() {
+            this.requestData();
         },
+        mounted() {
+
+        },
+        mixins: [mixin],
         methods: {
 
             // 事件
             changeIndex(index) {
+
                 this.index = index;
+
+                this.requestData();
+            },
+
+            async requestData() {
+
+                await this.requestCategoryMenu();
+
+                await this.requestCategoryGrid();
+
+                await this.requestCategoryList();
             },
 
             // 请求菜单数据
@@ -131,12 +152,14 @@
 
             }
         },
-        components: {
-            Scroll,
-            CategoryNavBar,
-            CategoryMenu,
-            CategoryGrid,
-            CategoryList
+        activated() {
+            this.$refs.scroll.refresh();
+        },
+        deactivated() {
+
+            console.log("解绑事件....");
+
+            this.$bus.$off("imgItemRefresh", this.itemImgListener);
         }
     }
 </script>
@@ -164,8 +187,14 @@
                 height: calc(100vh - .8rem - 1rem);
 
                 overflow: hidden;
-            }
 
+                .list {
+
+                    margin: .1rem;
+
+                    font-size: .3rem;
+                }
+            }
 
         }
 

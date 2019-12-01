@@ -2,7 +2,7 @@
 
     <div class="good-item" @click="goDetails">
 
-        <img v-lazy="goodInfo.image || goodInfo.showLarge.img" alt="" @load="imgLoadFinish">
+        <img v-lazy="goodInfo.img || goodInfo.image || goodInfo.showLarge.img" alt="" @load="imgLoadFinish">
 
         <div class="good-info">
             <p class="good-title">{{goodInfo.title}}</p>

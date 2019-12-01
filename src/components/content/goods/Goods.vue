@@ -34,6 +34,8 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
+
+        width: 100%;
         font-size: 40px;
 
         .bg {
