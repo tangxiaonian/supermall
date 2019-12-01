@@ -157,8 +157,6 @@
         },
         deactivated() {
 
-            console.log("解绑事件....");
-
             this.$bus.$off("imgItemRefresh", this.itemImgListener);
         }
     }
