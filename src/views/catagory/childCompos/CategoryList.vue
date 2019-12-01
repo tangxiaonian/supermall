@@ -2,8 +2,6 @@
 
     <div class="category-content">
 
-
-
     </div>
 
 </template>

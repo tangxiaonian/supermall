@@ -11,13 +11,14 @@
                     @changeIndex="changeIndex"
             ></category-menu>
 
-            <div class="category-content-right">
-                <category-grid
-                        :grid-data="gridData"
-                ></category-grid>
+            <scroll class="category-scroll">
 
-                <category-list></category-list>
-            </div>
+                <category-grid :grid-data="gridData">
+                </category-grid>
+
+<!--                <category-list></category-list>-->
+
+            </scroll>
 
         </div>
 
@@ -34,7 +35,11 @@
     import CategoryGrid from "./childCompos/CategoryGrid";
     import CategoryList from "./childCompos/CategoryList";
 
-    import {requestCategoryMenu,requestCategoryGrid,requestCategoryList} from "../../network/category/CategoryRequest";
+    import {
+        requestCategoryMenu,
+        requestCategoryGrid,
+        requestCategoryList
+    } from "../../network/category/CategoryRequest";
 
 
     export default {
@@ -44,7 +49,7 @@
                 categorys: [],
                 gridData: [],
                 listData: [],
-                index:0
+                index: 0
             };
         },
         async created() {
@@ -55,7 +60,7 @@
 
             await this.requestCategoryList();
         },
-        methods:{
+        methods: {
 
             // 事件
             changeIndex(index) {
@@ -63,9 +68,9 @@
             },
 
             // 请求菜单数据
-            async requestCategoryMenu(){
+            async requestCategoryMenu() {
 
-                 await new Promise((resolve, reject)=>{
+                await new Promise((resolve, reject) => {
 
                     requestCategoryMenu((result) => {
 
@@ -126,7 +131,7 @@
 
             }
         },
-        components:{
+        components: {
             Scroll,
             CategoryNavBar,
             CategoryMenu,
@@ -138,31 +143,29 @@
 
 <style scoped lang="scss">
 
-    .category{
+    .category {
 
-        .category-content{
+        .category-content {
             display: flex;
             position: relative;
-            left: 0;top: 0;
-            bottom: 1rem;right: 0;
+            left: 0;
+            top: 0;
+            bottom: 1rem;
+            right: 0;
 
-            width: 100%;
             height: calc(100vh - .8rem - 1rem);
+            width: 100%;
 
-            .category-scroll{
+            .category-scroll {
 
                 flex: 1;
 
                 width: 100%;
-                height: 100%;
+                height: calc(100vh - .8rem - 1rem);
 
                 overflow: hidden;
             }
 
-            .category-content-right{
-                width: 100%;
-                height: 100%;
-            }
 
         }
 

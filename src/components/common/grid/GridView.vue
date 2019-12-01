@@ -8,91 +8,66 @@
     export default {
         name: "GridView",
         props:{
-            // 总共有多少列
+            // 列数
             col:{
-                type: Number,
+                type:Number,
                 default() {
                     return 3;
                 }
             },
-            // 每一项的宽度
-            gridItemWidth:{
-                type: Number,
-                default() {
-                    return 200;
-                }
-            },
-            // 做边界的误差值
-            leftDeviation:{
-                type: Number,
-                default() {
-                    return 5;
-                }
-            },
-            // 顶边界的误差值
-            topDeviation: {
-                type: Number,
+            // 上下 Margin
+            tBMargin:{
+                type:Number,
                 default() {
                     return 10;
                 }
-            }
+            },
+            // 左右 padding
+            lRMargin:{
+                type:Number,
+                default() {
+                    return 10;
+                }
+            },
+
         },
         data() {
             return {
                 containerWidth: 0,
-                containerHeight: 0,
-                index:-1,
-                gridItemHeight: 0,
-
             }
         },
         mounted() {
 
-            let gridView = this.$refs.gridView;
+            setTimeout(() => {
 
-            let gridCollection = gridView.querySelectorAll(".grid-item");
+                this._autoLayout();
 
-            this.gridItemHeight = gridCollection.item(0).clientHeight;
+            },1000);
 
-            this.containerWidth = gridView.clientWidth;
+        },
+        updated() {
+        },
+        methods:{
+            _autoLayout() {
 
-            this.containerHeight = gridView.clientHeight;
+                let gridView = this.$refs.gridView;
 
-            // 每一项平均分的宽度
-            let itemWidth = this.containerWidth / this.col;
+                let gridCollection = gridView.children;
 
-            // 行数
-            this.row = Math.ceil(gridCollection.length / 3);
+                this.containerWidth = gridView.clientWidth;
 
-            // 每一项平均分的高度
-            let itemHeight = this.containerHeight / (this.row);
+                // 每一项 的 实际宽度
+                let itemWidth = (this.containerWidth / this.col) - (this.lRMargin * 2) ;
 
-            // 每一项平均分的宽度 -  传入的宽度  =  每一项应该得到的left
-            let marginLeft = itemWidth - this.gridItemWidth - this.leftDeviation;
+                [].forEach.call(gridCollection, (gridItem) => {
 
-            // 每一项应该得到的top
-            let marginTop = itemHeight - this.gridItemHeight - this.topDeviation;
+                    // 设置 width 包含 padding
+                    gridItem.style.width = `${itemWidth}px`;
 
-            for (let i = 0; i < gridCollection.length; i++) {
+                    gridItem.style.margin = `${this.tBMargin}px ${this.lRMargin}px`;
 
-                if ((i + 1) % this.col === 1) {
-                    this.index++;
-                }
+                });
 
-                let gridItem = gridCollection.item(i);
-
-                // left: 图片的实际位置  + margin left =
-
-                // i % this.col: 0 1 2
-
-                // i % this.col + 1  1  2  3
-
-                gridItem.style.cssText = `
-                    position: absolute;
-                    top:${ this.index * this.gridItemHeight + (this.index % this.col + 1) * marginTop}px;
-                    left:${ this.gridItemWidth * (i % this.col) + (i % this.col + 1) * marginLeft}px;
-                    border: 1px solid red;
-                `;
             }
         }
     }
@@ -102,10 +77,16 @@
 
     .grid-view{
 
-        position: relative;
-        left: 0;top: 0;
-        width: 100%;
-        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .grid-item{
+            height: auto;
+            .text{
+                text-align: center;
+            }
+
+        }
 
     }
 
