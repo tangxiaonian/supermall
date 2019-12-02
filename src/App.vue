@@ -29,6 +29,7 @@
 <style>
 
     @import "assets/css/base.css";
+    @import "assets/css/profile.css";
 
     .active {
         color: red;

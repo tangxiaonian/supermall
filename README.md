@@ -1,5 +1,7 @@
 # supermall
 
+完整项目... 拉取下来后,安装依赖,直接运行即可。
+
 ## Project setup
 ```
 yarn install

@@ -46,10 +46,11 @@
 
     .detail-bottom-bar{
         display: flex;
-        position: relative;
+        position: fixed;
         left: 0;bottom: 0;
         z-index: 3;
-        height: 1rem;width: 100%;
+        height: 1rem;
+        width: 100%;
         font-size: .3rem;
         background-color: #ffffff;
 

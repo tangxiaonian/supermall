@@ -45,7 +45,11 @@
 <style scoped lang="scss">
 
     .cart{
+        position: relative;
+        left: 0;
         font-size: .35rem;
+
+        height: calc(100vh - 1rem);
 
         .scroll{
             height: calc(100vh - .8rem - 1rem - .8rem);

@@ -20,7 +20,7 @@ export default new VueRouter({
         },
         {
             path:"/my",
-            component: () => import("../views/my/My")
+            component: () => import("../views/my/Profile")
         },
         {
             path:"/detail/:iid",
