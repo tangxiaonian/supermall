@@ -49,7 +49,7 @@
         left: 0;
         font-size: .35rem;
 
-        height: calc(100vh - 1rem);
+        height: calc(100vh - 1rem - .8rem);
 
         .scroll{
             height: calc(100vh - .8rem - 1rem - .8rem);

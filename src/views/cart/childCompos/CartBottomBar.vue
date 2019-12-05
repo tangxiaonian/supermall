@@ -67,8 +67,8 @@
 
     .cart-bottom-bar{
 
-        position: absolute;
-        left: 0;bottom: 0;
+        position: fixed;
+        left: 0;bottom: 1rem;
         display: flex;
         align-items: center;
         justify-content: space-between;

@@ -22,7 +22,7 @@
                     return 10;
                 }
             },
-            // 左右 padding
+            // 左右 Margin
             lRMargin:{
                 type:Number,
                 default() {
